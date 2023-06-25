@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@{ 
+    var err =Session["Err"];
+    if (err != null)
+    {
+        <div class="alert alert-danger">@err</div>
+    }
+    Session["Err"] = null;
+}
+

@@ -1,0 +1,98 @@
+﻿@model IEnumerable<preThi.Models.tbl_SinhVien>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Model = ViewBag.Model;
+}
+
+<h2>Index</h2>
+<style>
+    ul {
+        list-style-type: none;
+    }
+</style>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<form class="d-flex mb-3" action="/SinhVien/Index" method="get">
+    <input class="form-control me-sm-2" type="search" name="search" placeholder="Search">
+    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+</form>
+<table class="table">
+    <tr class="table-primary">
+        <th>
+            @Html.DisplayNameFor(model => model.HoTen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiaChi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KhoaHoc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LopQuanLy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgaySinh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GioiTinh)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.HoTen
+            </td>
+            <td>
+                @item.DiaChi
+            </td>
+            <td>
+                @item.KhoaHoc
+            </td>
+            <td>
+                @item.LopQuanLy
+            </td>
+            <td>
+                @item.NgaySinh.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @item.GioiTinh
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MSSV }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MSSV })
+            </td>
+        </tr>
+    }
+</table>
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+    <ul class="d-flex gap-2">
+        @{
+            if (ViewBag.TotalPage != 1)
+            {
+                for (int i = 1; i <= ViewBag.TotalPage; i++)
+                {
+                    var routeValues = new { page = i, search = Request.QueryString["search"] };
+                    <li class="@(i == ViewBag.CurrentPage ? "active" : "")">
+                        @Html.ActionLink(i.ToString(), "Index", routeValues)
+                    </li>
+                }
+            }
+        }
+    </ul>
+</div>
+<div>
+    @{
+        if (ViewBag.Ex != null)
+        {
+            <p class="text-bg-danger">@ViewBag.Ex</p>
+        }
+    }
+</div>
+
+
